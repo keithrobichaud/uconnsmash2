@@ -45,6 +45,9 @@ class HeaderComponent extends Component {
             <Link to={"/ladder"}>Ladder</Link>
           </NavItem>
           <NavItem>
+            <Link to={"/tournaments"}>Tournaments</Link>
+          </NavItem>
+          <NavItem>
             <Link to={"/admin"}>Admin</Link>
           </NavItem>
         </Nav>

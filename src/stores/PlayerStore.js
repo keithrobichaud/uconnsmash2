@@ -22,11 +22,11 @@ class PlayerStoreClass extends EventEmitter {
   }
 
   addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback)
+    this.on(CHANGE_EVENT, callback);
   }
 
   removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback)
+    this.removeListener(CHANGE_EVENT, callback);
   }
 
   getPlayers() {
@@ -36,35 +36,30 @@ class PlayerStoreClass extends EventEmitter {
   getPlayer() {
     return _player;
   }
-
+  
 }
 
 const PlayerStore = new PlayerStoreClass();
 
-// Here we register a callback for the dispatcher
-// and look for our various action types so we can
-// respond appropriately
 PlayerStore.dispatchToken = AppDispatcher.register(action => {
 
   switch(action.actionType) {
-    case PlayerConstants.RECIEVE_PLAYERS:
+    case PlayerConstants.RECEIVE_PLAYERS:
       setPlayers(action.players);
-      // We need to call emitChange so the event listener
-      // knows that a change has been made
       PlayerStore.emitChange();
       break
 
-    case PlayerConstants.RECIEVE_PLAYER:
+    case PlayerConstants.RECEIVE_PLAYER:
       setPlayer(action.player);
       PlayerStore.emitChange();
       break
 
-    case PlayerConstants.RECIEVE_PLAYER_ERROR:
+    case PlayerConstants.RECEIVE_PLAYER_ERROR:
       alert(action.message);
       PlayerStore.emitChange();
       break
 
-    case PlayerConstants.RECIEVE_PLAYERS_ERROR:
+    case PlayerConstants.RECEIVE_PLAYERS_ERROR:
       alert(action.message);
       PlayerStore.emitChange();
       break

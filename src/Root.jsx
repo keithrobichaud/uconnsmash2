@@ -3,6 +3,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import Index from './components/Index';
 import LadderPage from './pages/LadderPage'
 import AdminPage from './pages/AdminPage'
+import TournamentsPage from './pages/TournamentsPage'
 import PlayerDetail from './components/PlayerDetail';
 
 import App from './components/App';
@@ -19,6 +20,7 @@ class Root extends Component {
           <IndexRoute component={Index}/>
           <Route path='/ladder' component={LadderPage} />
           <Route path='/admin' component={AdminPage} />
+          <Route path='/tournaments' component={TournamentsPage} />
           <Route path='/players/:id' component={PlayerDetail} />
         </Route>
       </Router>

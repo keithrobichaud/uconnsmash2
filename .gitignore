@@ -28,3 +28,9 @@ node_modules
 
 # Bower
 bower_components/
+
+.babel*
+.editorconfig
+.eslintrc
+.yo-rc.json
+*DS_Store
