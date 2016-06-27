@@ -8,7 +8,7 @@ class LadderCell extends Component {
     return (
       <ListGroupItem>
         <Link to={`/players/${player._id}`}>
-          <h4>{player.name}</h4>
+          <h4>{ this.props.rank + 1 }. {player.name}</h4>
         </Link>
       </ListGroupItem>
     );

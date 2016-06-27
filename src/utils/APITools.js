@@ -24,7 +24,7 @@ export default {
 				.send(data)
 				.end((err, response) => {
 					if (err) reject(err);
-					resolve(JSON.parse(response.text));
+					resolve(response);
 				})
 		})
 	}

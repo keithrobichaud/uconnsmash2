@@ -26,10 +26,10 @@ export default {
 	createTournament: (ladderId, tournament) => {
 		TournamentAPI
 			.createTournament(urlBase + 'ladder/' + ladderId + '/events', tournament)
-			.then(tournaments => {
+			.then(function() {
 				AppDispatcher.dispatch({
 					actionType: TournamentConstants.CREATE_TOURNAMENT_SUCCESS,
-					message: "Tournament was successfully created."
+					message: 'Tournament was successfully created.'
 				});
 			})
 			.catch(message => {

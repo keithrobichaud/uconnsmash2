@@ -3,29 +3,27 @@ import { Button } from 'react-bootstrap';
 
 import CreateTournamentModal from '../components/tournaments/CreateTournamentModal'
 
+// this is a hardcoded id for right now for development purposes.
+var ladderId = '57661ba8bcb61e8a0643f231';
 
-var AdminPage = React.createClass({
-	propTypes: {
-		// children: React.PropTypes.element.isRequired
-	},
+class AdminPage extends Component {
 
-	getInitialState() {
-		return { showTournamentModal: false };
-	},
+	constructor() {
+		super();
+		this.state = {
+			showTournamentModal: false
+		}
+	}
 
-	showTournamentModal() {
-		console.log('show modal');
+	showTournamentModal = () => {
 		this.setState({ showTournamentModal: true });
-		// return (<CreateTournamentModal/>);
-	},
+	}
 
-	hideTournamentModal() {
+	hideTournamentModal = () => {
 		this.setState({showTournamentModal: false});
-	},
+	}
 
 	render() {
-		// var tournModal = this.getTournamentModal();
-
 		return (
 			<div>
 				<h1>Admin Dashboard</h1>
@@ -33,12 +31,12 @@ var AdminPage = React.createClass({
 				{this.state.showTournamentModal ?
 					<CreateTournamentModal
 						isOpen={this.state.showTournamentModal}
-						onClose={this.hideTournamentModal}>
-					</CreateTournamentModal>
+						onClose={this.hideTournamentModal}
+						ladderId={ladderId} />
 				: null}
 			</div>
 		);
 	}
-});
+}
 
 export default AdminPage;

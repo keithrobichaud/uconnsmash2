@@ -11,9 +11,9 @@ function setTournaments(tournaments) {
 	_tournaments = tournaments
 }
 
-function setTournament(tournament) {
-	_tournament = tournament
-}
+// function setTournament(tournament) {
+// 	_tournament = tournament
+// }
 
 class TournamentStoreClass extends EventEmitter {
 

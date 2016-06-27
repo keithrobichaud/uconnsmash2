@@ -5,9 +5,10 @@ import PlayerActions from '../actions/PlayerActions';
 import PlayerStore from '../stores/PlayerStore';
 import LadderCell from './LadderCell'
 
-function getLadderCell(player) {
+function getLadderCell(player, rank) {
   return (
     <LadderCell
+      rank={rank}
       key={player._id}
       player={player}
     />
@@ -49,7 +50,7 @@ class LadderTableView extends Component {
   render() {
     let ladderCells;
     if (this.state.players) {
-      ladderCells = this.state.players.map(player => getLadderCell(player));
+      ladderCells = this.state.players.map(function(player, i) { return getLadderCell(player, i) });
     }
     return (
       <div>
