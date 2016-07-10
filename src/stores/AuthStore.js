@@ -40,6 +40,13 @@ class AuthStoreClass extends EventEmitter {
     return localStorage.getItem('profile');
   }
 
+  isAdmin() {
+    if (localStorage.getItem('profile')) {
+      return JSON.parse(localStorage.getItem('profile')).roles[0] === 'admin';
+    }
+    return false;
+  }
+
   getJwt() {
     return localStorage.getItem('id_token');
   }
@@ -47,9 +54,6 @@ class AuthStoreClass extends EventEmitter {
 
 const AuthStore = new AuthStoreClass();
 
-// Here we register a callback for the dispatcher
-// and look for our various action types so we can
-// respond appropriately
 AuthStore.dispatchToken = AppDispatcher.register(action => {
 
   switch(action.actionType) {

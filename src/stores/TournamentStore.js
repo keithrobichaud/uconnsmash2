@@ -6,14 +6,19 @@ const CHANGE_EVENT = 'change';
 
 let _tournaments = [];
 let _tournament = {};
+let _newTournament = {};
 
 function setTournaments(tournaments) {
 	_tournaments = tournaments
 }
 
-// function setTournament(tournament) {
-// 	_tournament = tournament
-// }
+function setTournament(tournament) {
+	_tournament = tournament
+}
+
+function setNewTournament(tournament) {
+	_newTournament = tournament
+}
 
 class TournamentStoreClass extends EventEmitter {
 
@@ -37,6 +42,10 @@ class TournamentStoreClass extends EventEmitter {
 		return _tournament;
 	}
 
+	getNewTournament() {
+		return _newTournament;
+	}
+
 }
 
 const TournamentStore = new TournamentStoreClass();
@@ -49,7 +58,12 @@ TournamentStore.dispatchToken = AppDispatcher.register(action => {
 			break;
 
 		case TournamentConstants.RECEIVE_TOURNAMENT:
-			setTournaments(action.tournament);
+			setTournament(action.tournament);
+			TournamentStore.emitChange();
+			break;
+
+		case TournamentConstants.CREATE_TOURNAMENT_SUCCESS:
+			setNewTournament(action.tournament);
 			TournamentStore.emitChange();
 			break;
 

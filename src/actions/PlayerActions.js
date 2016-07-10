@@ -6,7 +6,7 @@ import PlayerAPI from '../utils/PlayerAPI';
 var urlBase = 'http://localhost:3000/api/';
 
 export default {
-  receivePlayersFromLadder: (ladderId) => {
+  getPlayers: (ladderId) => {
     PlayerAPI
       .getPlayers(urlBase + 'ladder/' + ladderId + '/players')
       .then(players => {
@@ -35,6 +35,23 @@ export default {
       .catch(message => {
         AppDispatcher.dispatch({
           actionType: PlayerConstants.RECEIVE_PLAYER_ERROR,
+          message: message
+        });
+      });
+  },
+
+  createPlayer: (ladderId, player) => {
+    PlayerAPI
+      .createPlayer(urlBase + 'ladder/' + ladderId + '/players', player)
+      .then(function() {
+        AppDispatcher.dispatch({
+          actionType: PlayerConstants.CREATE_PLAYER_SUCCESS,
+          message: 'Player was successfully created.'
+        });
+      })
+      .catch(message => {
+        AppDispatcher.dispatch({
+          actionType: PlayerConstants.CREATE_PLAYER_ERROR,
           message: message
         });
       });

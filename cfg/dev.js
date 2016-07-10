@@ -30,10 +30,17 @@ let config = Object.assign({}, baseConfig, {
 config.module.loaders.push({
   test: /\.(js|jsx)$/,
   loader: 'react-hot!babel-loader',
+  exclude: /node_modules/,
   include: [].concat(
     config.additionalPaths,
     [ path.join(__dirname, '/../src') ]
   )
+  // test: /.jsx?$/,
+  // loader: 'babel-loader',
+  // exclude: /node_modules/,
+  // query: {
+  //   presets: ['es2015', 'react']
+  // }
 });
 
 module.exports = config;

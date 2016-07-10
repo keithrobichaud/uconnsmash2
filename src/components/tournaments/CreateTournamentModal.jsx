@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Modal, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 import DatePicker from 'react-bootstrap-date-picker';

@@ -33,7 +33,7 @@ class LadderTableView extends Component {
   }
 
   componentDidMount() {
-    PlayerActions.receivePlayersFromLadder(ladderId);
+    PlayerActions.getPlayers(ladderId);
   }
 
   componentWillUnmount() {
@@ -50,7 +50,9 @@ class LadderTableView extends Component {
   render() {
     let ladderCells;
     if (this.state.players) {
-      ladderCells = this.state.players.map(function(player, i) { return getLadderCell(player, i) });
+
+      var sortedPlayers = this.state.players.sort(function(a,b) {return (a.trueSkill < b.trueSkill) ? 1 : ((b.trueSkill < a.trueSkill) ? -1 : 0);} );
+      ladderCells = sortedPlayers.map(function(player, i) { return getLadderCell(player, i) });
     }
     return (
       <div>

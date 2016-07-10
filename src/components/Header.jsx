@@ -10,7 +10,8 @@ class HeaderComponent extends Component {
   constructor() {
     super();
     this.state = {
-      authenticated: AuthStore.isAuthenticated()
+      authenticated: AuthStore.isAuthenticated(),
+      isAdmin: AuthStore.isAdmin()
     }
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
@@ -23,13 +24,19 @@ class HeaderComponent extends Component {
         return;
       }
       AuthActions.logUserIn(profile, token);
-      this.setState({authenticated: true});
+      this.setState({
+        authenticated: true,
+        isAdmin: AuthStore.isAdmin()
+      });
     });
   }
 
   logout() {
     AuthActions.logUserOut();
-    this.setState({authenticated: false});
+    this.setState({
+      authenticated: false,
+      isAdmin: null
+    });
   }
 
   render() {
@@ -47,9 +54,11 @@ class HeaderComponent extends Component {
           <NavItem>
             <Link to={"/tournaments"}>Tournaments</Link>
           </NavItem>
-          <NavItem>
-            <Link to={"/admin"}>Admin</Link>
-          </NavItem>
+          { this.state.isAdmin ? (
+            <NavItem>
+              <Link to={"/admin"}>Admin</Link>
+            </NavItem>
+          ) : null}
         </Nav>
         <Nav pullRight>
           { !this.state.authenticated ? (
