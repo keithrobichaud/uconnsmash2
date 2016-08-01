@@ -3,10 +3,9 @@
 **Setup:**
 
 1. Clone this repo
-2. Clone senior design
-3. install nodejs, npm using package manager
-4. install mongo: https://docs.mongodb.com/manual/installation/#tutorials
-5. Install webpack and generator stuff :
+2. install nodejs, npm using package manager
+3. install mongo: https://docs.mongodb.com/manual/installation/#tutorials
+4. Install webpack and generator stuff :
 
 ```
 npm install -g webpack
