@@ -2,7 +2,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import ChallongeConstants from '../constants/ChallongeConstants';
 import ChallongeAPI from '../utils/ChallongeAPI';
 
-var urlBase = 'http://localhost:3000/challonge/'
+var urlBase = 'http://uconnsmash.com:3000/challonge/'
 
 export default {
 	receiveTournaments: (apiKey) => {

@@ -3,7 +3,7 @@ import PlayerConstants from '../constants/PlayerConstants';
 import PlayerAPI from '../utils/PlayerAPI';
 
 // when this gets hosted for real, the anyrank server should be running as well.
-var urlBase = 'http://localhost:3000/api/';
+var urlBase = 'http://uconnsmash.com:3000/api/';
 
 export default {
   getPlayers: (ladderId) => {
@@ -43,7 +43,7 @@ export default {
   createPlayer: (ladderId, player) => {
     PlayerAPI
       .createPlayer(urlBase + 'ladder/' + ladderId + '/players', player)
-      .then(function() {
+      .then(function () {
         AppDispatcher.dispatch({
           actionType: PlayerConstants.CREATE_PLAYER_SUCCESS,
           message: 'Player was successfully created.'
@@ -55,6 +55,7 @@ export default {
           message: message
         });
       });
+
   }
 
 }

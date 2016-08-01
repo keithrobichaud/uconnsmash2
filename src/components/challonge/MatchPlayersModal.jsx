@@ -57,72 +57,99 @@ var MatchPlayersModal = React.createClass({
 		return <PlayerMatchItem key={player.name} onChange={this.setPlayerValue.bind(this, player.name)} player={player} ladderPlayers={this.state.ladderPlayers} />;
 	},
 
-	getPlayerMap() {
-		for (let challongePlayerName in this.state.ladderPlayerMap) {
-			var ladderPlayer, ladderPlayerName, ladderPlayerId, challongePlayer, challongePlayerId;
+	// getPlayerMap() {
+	// 	PlayerActions.getPlayers(this.props.ladderId);
+	// 	console.log(this.state.ladderPlayerMap);
+	// 	for (let challongePlayerName in this.state.ladderPlayerMap) {
+	// 		var ladderPlayer, ladderPlayerName, ladderPlayerId, challongePlayer, challongePlayerId;
+	// 		ladderPlayerId = null;
 
-			ladderPlayerName = this.state.ladderPlayerMap[challongePlayerName];
+	// 		ladderPlayerName = this.state.ladderPlayerMap[challongePlayerName];
 
-			if (ladderPlayerName === 'none') {
-				continue;
-			}
+	// 		if (ladderPlayerName === 'none') {
+	// 			continue;
+	// 		}
 
-			for (var i = 0; i < this.state.ladderPlayers.length; i++) {
-				ladderPlayer = this.state.ladderPlayers[i];
-				if (ladderPlayer.name === ladderPlayerName) {
-					ladderPlayerId = ladderPlayer._id
-				}
-			}
+	// 		for (var i = 0; i < this.state.ladderPlayers.length; i++) {
+	// 			ladderPlayer = this.state.ladderPlayers[i];
+	// 			if (ladderPlayer.name === ladderPlayerName) {
+	// 				ladderPlayerId = ladderPlayer._id
+	// 			}
+	// 		}
 
-			if (ladderPlayerName === 'new') {
-				ladderPlayerId = 'new-' + challongePlayerName;
-			}
+	// 		for (var i = 0; i < this.state.tournament.participants.length; i++) {
+	// 			challongePlayer = this.state.tournament.participants[i].participant;
+	// 			if (challongePlayer.name == challongePlayerName) {
+	// 				challongePlayerId = challongePlayer.id
+	// 			}
+	// 		}
+	// 		var obj = this.state.ladderToParticipantMap;
+	// 		if (ladderPlayerId) {
+	// 			obj[challongePlayerId] = ladderPlayerId;
+	// 		}
 
-			for (var i = 0; i < this.state.tournament.participants.length; i++) {
-				challongePlayer = this.state.tournament.participants[i].participant;
-				if (challongePlayer.name == challongePlayerName) {
-					challongePlayerId = challongePlayer.id
-				}
-			}
-			var obj = this.state.ladderToParticipantMap;
-			obj[challongePlayerId] = ladderPlayerId;
+	// 		this.setState({
+	// 			ladderToParticipantMap: obj
+	// 		})
+	// 	}
+	// 	console.log(this.state.ladderToParticipantMap);
+	// 	this.getMatches();
+	// },
 
-			this.setState({
-				ladderToParticipantMap: obj
-			})
-		}
+	// getMatches() {
+	// 	this.state.tournament.matches.forEach(match => {
+	// 		var match = match.match;
+	// 		var winnerId = match.winner_id;
+	// 		var loserId = match.loser_id;
+	// 		var score = match.scores_csv;
+
+	// 		//if both ids are in
+	// 		var playerMap = this.state.ladderToParticipantMap;
+	// 		if (playerMap.hasOwnProperty(winnerId) && playerMap.hasOwnProperty(loserId)) {
+
+	// 			//add match to ladderMatches
+	// 			var obj = this.state.ladderMatches;
+	// 			obj[match.id] = {
+	// 				winnerId: playerMap[winnerId],
+	// 				loserId: playerMap[loserId],
+	// 				score: score
+	// 			};
+	// 			this.setState({
+	// 				ladderMatches: obj
+	// 			});
+	// 		}
+	// 	})
+	// },
+
+	createPlayer(player) {
+		return PlayerActions.createPlayer(this.props.ladderId, player);
 	},
 
-	getMatches() {
-		this.state.tournament.matches.forEach(match => {
-			var match = match.match;
-			var winnerId = match.winner_id;
-			var loserId = match.loser_id;
-			var score = match.scores_csv;
-
-			//if both ids are in
-			var playerMap = this.state.ladderToParticipantMap;
-			if (playerMap.hasOwnProperty(winnerId) && playerMap.hasOwnProperty(loserId)) {
-
-				//add match to ladderMatches
-				var obj = this.state.ladderMatches;
-				obj[match.id] = {
-					winnerId: playerMap[winnerId],
-					loserId: playerMap[loserId],
-					score: score
-				};
-				this.setState({
-					ladderMatches: obj
-				})
+	createPlayers() {
+		var playerMap = this.state.ladderPlayerMap;
+		var newPlayerMap = {};
+		Object.keys(playerMap).map(function (key) {
+			if (playerMap[key] === 'new') {
+				this.createPlayer({name: key});
+				newPlayerMap[key] = key;
+			} else {
+				newPlayerMap[key] = playerMap[key];
 			}
-		})
+		}, this);
+
+		// console.log(newPlayerMap);
+
+		this.setState({
+			ladderPlayerMap: newPlayerMap
+		});
+		this.getPlayerMap();
 	},
+
 
 	saveAndContinue: function(e) {
 		e.preventDefault();
 
-		this.getPlayerMap()
-		this.getMatches()
+		this.createPlayers();
 
 		var data = {
 			ladderPlayerMap: this.state.ladderPlayerMap,
@@ -132,7 +159,7 @@ var MatchPlayersModal = React.createClass({
 		};
 
 		this.props.saveValues(data);
-		this.props.nextStep();
+		// this.props.nextStep();
 	},
 
 	setPlayerValue: function (field, event) {

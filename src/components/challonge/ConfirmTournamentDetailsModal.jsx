@@ -46,22 +46,9 @@ var ConfirmTournamentDetailsModal = React.createClass({
     });
   },
 
-  // handleChange: function(event) {
-  //   this.setState({tournamentId: event.target.value});
-  // },
-
   close() {
     this.props.onClose();
   },
-
-  createPlayer(player) {
-    PlayerActions.createPlayer(this.props.ladderId, player);
-  },
-
-  // createMatch(match) {
-  //   console.log(this.state.newTournament);
-  //   MatchActions.createMatch(this.state.newTournament._id, match);
-  // },
 
   getNameString(str) {
     if (str.slice(0,4) === 'new-') {
@@ -86,18 +73,8 @@ var ConfirmTournamentDetailsModal = React.createClass({
     );
   },
 
+
   saveAndContinue: function() {
-
-    // Create new players if necessary
-    var playerMap = this.props.fieldValues.ladderPlayerMap;
-    Object.keys(playerMap).map(function (key) {
-          if (playerMap[key] === 'new') {
-            this.createPlayer({name: key});
-          }
-    }, this);
-
-    // Create new tournament
-    var tournament = {name: this.state.tournamentName}
 
     // Create new matches
     var matches = this.props.fieldValues.ladderMatches;
@@ -117,6 +94,8 @@ var ConfirmTournamentDetailsModal = React.createClass({
       }
     });
 
+    // Create new tournament
+    var tournament = {name: this.state.tournamentName}
     TournamentActions.createTournamentWithMatches(this.props.ladderId, tournament, matches);
 
     this.props.nextStep()
@@ -129,6 +108,71 @@ var ConfirmTournamentDetailsModal = React.createClass({
   handleDateChange: function(event) {
     this.setState({tournamentDate: event.target.value});
   },
+
+  getPlayerMap() {
+    PlayerActions.getPlayers(this.props.ladderId);
+    console.log(this.state.ladderPlayerMap);
+    for (let challongePlayerName in this.state.ladderPlayerMap) {
+      var ladderPlayer, ladderPlayerName, ladderPlayerId, challongePlayer, challongePlayerId;
+      ladderPlayerId = null;
+
+      ladderPlayerName = this.state.ladderPlayerMap[challongePlayerName];
+
+      if (ladderPlayerName === 'none') {
+        continue;
+      }
+
+      for (var i = 0; i < this.state.ladderPlayers.length; i++) {
+        ladderPlayer = this.state.ladderPlayers[i];
+        if (ladderPlayer.name === ladderPlayerName) {
+          ladderPlayerId = ladderPlayer._id
+        }
+      }
+
+      for (var i = 0; i < this.state.tournament.participants.length; i++) {
+        challongePlayer = this.state.tournament.participants[i].participant;
+        if (challongePlayer.name == challongePlayerName) {
+          challongePlayerId = challongePlayer.id
+        }
+      }
+      var obj = this.state.ladderToParticipantMap;
+      if (ladderPlayerId) {
+        obj[challongePlayerId] = ladderPlayerId;
+      }
+
+      this.setState({
+        ladderToParticipantMap: obj
+      })
+    }
+    console.log(this.state.ladderToParticipantMap);
+    this.getMatches();
+  },
+
+  getMatches() {
+    this.state.tournament.matches.forEach(match => {
+      var match = match.match;
+      var winnerId = match.winner_id;
+      var loserId = match.loser_id;
+      var score = match.scores_csv;
+
+      //if both ids are in
+      var playerMap = this.state.ladderToParticipantMap;
+      if (playerMap.hasOwnProperty(winnerId) && playerMap.hasOwnProperty(loserId)) {
+
+        //add match to ladderMatches
+        var obj = this.state.ladderMatches;
+        obj[match.id] = {
+          winnerId: playerMap[winnerId],
+          loserId: playerMap[loserId],
+          score: score
+        };
+        this.setState({
+          ladderMatches: obj
+        });
+      }
+    })
+  },
+
 
   render: function() {
     if (this.props.ladderMatches) {

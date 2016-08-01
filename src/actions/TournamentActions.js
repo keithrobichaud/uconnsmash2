@@ -4,7 +4,7 @@ import TournamentAPI from '../utils/TournamentAPI';
 import MatchActions from './MatchActions';
 
 // when this gets hosted for real, the anyrank server should be running as well.
-var urlBase = 'http://localhost:3000/api/';
+var urlBase = 'http://uconnsmash.com:3000/api/';
 
 export default {
 	receieveTournamentsFromLadder: (ladderId) => {

@@ -7,7 +7,7 @@ import ChallongeImportModal from '../components/challonge/ChallongeImportModal'
 import AuthStore from '../stores/AuthStore';
 
 // hardcoded ids for right now for development purposes.
-var ladderId = '57661ba8bcb61e8a0643f231';
+var ladderId = '5782defdd71d240d2d82c89e';
 var apiKey = 'OTDkq2jLrPvgO7JaTPpq1gSqAe7DFl2Z4GzaCRNw';
 
 class AdminPage extends Component {

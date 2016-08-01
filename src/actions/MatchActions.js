@@ -3,7 +3,7 @@ import MatchConstants from '../constants/MatchConstants';
 import MatchAPI from '../utils/MatchAPI';
 
 // when this gets hosted for real, the anyrank server should be running as well.
-var urlBase = 'http://localhost:3000/api/';
+var urlBase = 'http://uconnsmash.com:3000/api/';
 
 export default {
   createMatch: (eventId, match) => {
