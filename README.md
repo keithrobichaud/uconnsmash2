@@ -15,10 +15,10 @@ npm install -g generator-react-webpack
 ```
 
 6. Run these commands to install the webpack files. Make sure to to take note of what options to use:
-* Name: uconnsmash2
-* Style language: sass
-* Enable postcss: N
-Everything else is n (do not override)
+  * Name: uconnsmash2
+  * Style language: sass
+  * Enable postcss: N
+  * Everything else is n (do not override)
 
 ```
 cd uconnsmash2/
