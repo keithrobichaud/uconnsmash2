@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonToolbar, Col } from 'react-bootstrap';
 
 import CreateTournamentModal from '../components/tournaments/CreateTournamentModal'
 import ChallongeImportModal from '../components/challonge/ChallongeImportModal'
+import PendingTournamentList from '../components/tournaments/PendingTournamentList'
 
 import AuthStore from '../stores/AuthStore';
 
@@ -59,6 +60,9 @@ class AdminPage extends Component {
 						apiKey={apiKey}
 						ladderId={ladderId} />
 				: null}
+				<Col md={4}>
+					<PendingTournamentList />
+				</Col>
 			</div>
 		);
 	}

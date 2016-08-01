@@ -142,7 +142,6 @@ var MatchPlayersModal = React.createClass({
 		this.setState({
 			ladderPlayerMap: newPlayerMap
 		});
-		this.getPlayerMap();
 	},
 
 
@@ -159,7 +158,7 @@ var MatchPlayersModal = React.createClass({
 		};
 
 		this.props.saveValues(data);
-		// this.props.nextStep();
+		this.props.nextStep();
 	},
 
 	setPlayerValue: function (field, event) {

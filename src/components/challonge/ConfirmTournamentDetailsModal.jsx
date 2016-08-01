@@ -20,7 +20,9 @@ var ConfirmTournamentDetailsModal = React.createClass({
     var tournament = this.props.fieldValues.tournament.details;
     return {
       players: null,
-      tournamentName: tournament.name
+      tournamentName: tournament.name,
+      ladderToParticipantMap: {},
+      ladderMatches: {}
       // tournamentDate: tournament.started_at
     };
   },
@@ -31,7 +33,7 @@ var ConfirmTournamentDetailsModal = React.createClass({
   },
 
   componentDidMount() {
-    PlayerActions.getPlayers(this.props.apiKey);
+    this.getPlayerMap();
   },
 
   componentWillUnmount() {
@@ -77,7 +79,7 @@ var ConfirmTournamentDetailsModal = React.createClass({
   saveAndContinue: function() {
 
     // Create new matches
-    var matches = this.props.fieldValues.ladderMatches;
+    var matches = this.state.ladderMatches;
     matches = Object.keys(matches).map(function (key) {
 
       return {
@@ -111,26 +113,25 @@ var ConfirmTournamentDetailsModal = React.createClass({
 
   getPlayerMap() {
     PlayerActions.getPlayers(this.props.ladderId);
-    console.log(this.state.ladderPlayerMap);
-    for (let challongePlayerName in this.state.ladderPlayerMap) {
+    for (let challongePlayerName in this.props.fieldValues.ladderPlayerMap) {
       var ladderPlayer, ladderPlayerName, ladderPlayerId, challongePlayer, challongePlayerId;
       ladderPlayerId = null;
 
-      ladderPlayerName = this.state.ladderPlayerMap[challongePlayerName];
+      ladderPlayerName = this.props.fieldValues.ladderPlayerMap[challongePlayerName];
 
       if (ladderPlayerName === 'none') {
         continue;
       }
 
-      for (var i = 0; i < this.state.ladderPlayers.length; i++) {
-        ladderPlayer = this.state.ladderPlayers[i];
+      for (var i = 0; i < this.props.fieldValues.ladderPlayers.length; i++) {
+        ladderPlayer = this.props.fieldValues.ladderPlayers[i];
         if (ladderPlayer.name === ladderPlayerName) {
           ladderPlayerId = ladderPlayer._id
         }
       }
 
-      for (var i = 0; i < this.state.tournament.participants.length; i++) {
-        challongePlayer = this.state.tournament.participants[i].participant;
+      for (var i = 0; i < this.props.fieldValues.tournament.participants.length; i++) {
+        challongePlayer = this.props.fieldValues.tournament.participants[i].participant;
         if (challongePlayer.name == challongePlayerName) {
           challongePlayerId = challongePlayer.id
         }
@@ -144,12 +145,11 @@ var ConfirmTournamentDetailsModal = React.createClass({
         ladderToParticipantMap: obj
       })
     }
-    console.log(this.state.ladderToParticipantMap);
     this.getMatches();
   },
 
   getMatches() {
-    this.state.tournament.matches.forEach(match => {
+    this.props.fieldValues.tournament.matches.forEach(match => {
       var match = match.match;
       var winnerId = match.winner_id;
       var loserId = match.loser_id;
@@ -175,9 +175,9 @@ var ConfirmTournamentDetailsModal = React.createClass({
 
 
   render: function() {
-    if (this.props.ladderMatches) {
-      var matches = Object.keys(this.props.ladderMatches).map(function(key) {
-          return this.getMatchElement(this.props.ladderMatches[key], key);
+    if (this.state.ladderMatches) {
+      var matches = Object.keys(this.state.ladderMatches).map(function(key) {
+          return this.getMatchElement(this.state.ladderMatches[key], key);
       }, this);
 
     }
@@ -208,7 +208,7 @@ var ConfirmTournamentDetailsModal = React.createClass({
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.props.previousStep} disabled={false}> Back </Button>
-          <Button onClick={this.saveAndContinue} disabled={false}> Continue </Button>
+          <Button bsStyle="success" onClick={this.saveAndContinue} disabled={false}> Save </Button>
         </Modal.Footer>
       </Modal>
     )

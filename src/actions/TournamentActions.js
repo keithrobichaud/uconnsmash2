@@ -44,7 +44,7 @@ export default {
 
 	createTournamentWithMatches: (ladderId, tournament, matches) => {
 		TournamentAPI
-		.createTournament(urlBase + 'ladder/' + ladderId + '/events', tournament)
+			.createTournament(urlBase + 'ladder/' + ladderId + '/events', tournament)
 			.then(tournament => {
 				var tournamentId = tournament.body._id;
 
@@ -65,6 +65,24 @@ export default {
 			.catch(message => {
 				AppDispatcher.dispatch({
 					actionType: TournamentConstants.CREATE_TOURNAMENT_ERROR,
+					message: message
+				});
+			});
+	},
+
+	submitTournament: (tournamentId) => {
+		TournamentAPI
+			.submitTournament(urlBase + 'events/' + tournamentId + '/submit' , {})
+			.then(tournament => {
+				AppDispatcher.dispatch({
+					actionType: TournamentConstants.SUBMIT_TOURNAMENT_SUCCESS,
+					tournament: tournament,
+					message: 'Tournament was successfully submitted.'
+				});
+			})
+			.catch(message => {
+				AppDispatcher.dispatch({
+					actionType: TournamentConstants.SUBMIT_TOURNAMENT_ERROR,
 					message: message
 				});
 			});

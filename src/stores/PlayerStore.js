@@ -30,7 +30,7 @@ class PlayerStoreClass extends EventEmitter {
   }
 
   getPlayers() {
-    return _players;
+    return _players.sort(function(a,b) {return (a.trueSkill < b.trueSkill) ? 1 : ((b.trueSkill < a.trueSkill) ? -1 : 0);} );
   }
 
   getPlayer() {

@@ -7,5 +7,9 @@ export default {
 
 	createTournament: (url, tournament) => {
 		return APITools.executePost(url, tournament);
+	},
+
+	submitTournament: (url, tournament) => {
+		return APITools.executePut(url, tournament);
 	}
 }

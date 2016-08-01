@@ -27,6 +27,18 @@ export default {
 					resolve(response);
 				})
 		})
+	},
+
+	executePut: (url, data) => {
+		return new Promise((resolve, reject) => {
+			request
+				.put(url)
+				.send(data)
+				.end((err, response) => {
+					if (err) reject(err);
+					resolve(response);
+				})
+		})
 	}
 
 }
