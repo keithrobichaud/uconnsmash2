@@ -25,4 +25,7 @@ cd uconnsmash2/
 yo react-webpack
 ```
 
+**Running locally:**
 
+1. Run npm start from your uconnsmash2/ directory.
+2. In your browser, navigate to localhost:8000
