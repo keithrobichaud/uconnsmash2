@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavItem, Header, Brand } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import AuthActions from '../actions/AuthActions';
 import AuthStore from '../stores/AuthStore';
@@ -43,21 +43,21 @@ class HeaderComponent extends Component {
     return (
       <Navbar>
         <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/#">UConn Smash</Link>
-          </Navbar.Brand>
+          <LinkContainer to="/#">
+            <Navbar.Brand>UConn Smash</Navbar.Brand>
+          </LinkContainer>
         </Navbar.Header>
         <Nav>
-          <NavItem>
-            <Link to={"/ladder"}>Ladder</Link>
-          </NavItem>
-          <NavItem>
-            <Link to={"/tournaments"}>Tournaments</Link>
-          </NavItem>
+          <LinkContainer to="/ladder">
+            <NavItem>Ladder</NavItem>
+          </LinkContainer>
+          <LinkContainer to="/tournaments">
+            <NavItem>Tournaments</NavItem>
+          </LinkContainer>
           { this.state.isAdmin ? (
-            <NavItem>
-              <Link to={"/admin"}>Admin</Link>
-            </NavItem>
+            <LinkContainer to="/admin">
+              <NavItem>Admin</NavItem>
+            </LinkContainer>
           ) : null}
         </Nav>
         <Nav pullRight>

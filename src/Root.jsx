@@ -4,6 +4,7 @@ import Index from './components/Index';
 import LadderPage from './pages/LadderPage'
 import AdminPage from './pages/AdminPage'
 import TournamentsPage from './pages/TournamentsPage'
+import TournamentPage from './pages/TournamentPage'
 import PlayerDetail from './components/PlayerDetail';
 
 import AuthStore from './stores/AuthStore';
@@ -29,6 +30,7 @@ class Root extends Component {
           <Route path='/ladder' component={LadderPage} />
           <Route path='/admin' component={AdminPage} onEnter={this.requireAdmin}/>
           <Route path='/tournaments' component={TournamentsPage} />
+          <Route path='/tournaments/:id' component={TournamentPage} />
           <Route path='/players/:id' component={PlayerDetail} />
         </Route>
       </Router>

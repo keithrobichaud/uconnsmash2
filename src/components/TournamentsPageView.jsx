@@ -16,7 +16,7 @@ function getTournamentView(tournament) {
 }
 
 // this is a hardcoded id for right now for development purposes.
-var ladderId = '5782defdd71d240d2d82c89e';
+var ladderId = '57ba5cc39cec0cdb0555c552';
 
 class TournamentsPageView extends Component {
 

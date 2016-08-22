@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore';
 import { Modal, ListGroup, Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap'
 
 import TournamentActions from '../../actions/TournamentActions';
@@ -22,8 +23,8 @@ var ConfirmTournamentDetailsModal = React.createClass({
       players: null,
       tournamentName: tournament.name,
       ladderToParticipantMap: {},
-      ladderMatches: {}
-      // tournamentDate: tournament.started_at
+      ladderMatches: {},
+      tournamentDate: tournament.started_at
     };
   },
 
@@ -96,9 +97,29 @@ var ConfirmTournamentDetailsModal = React.createClass({
       }
     });
 
+    var results = [];
+    var playerMap = this.state.ladderToParticipantMap;
+    var challongeParticipants = this.props.fieldValues.tournament.participants;
+
+    results = _.mapObject(playerMap, function (ladderId, challongeId) {
+      var placement;
+      challongeParticipants.forEach(participant => {
+        participant = participant.participant;
+        if (participant.id == challongeId) {
+          placement = participant.final_rank;
+        }
+      }, this);
+
+      return {
+        player: ladderId,
+        placement: placement
+      }
+    });
+    results = _.values(results)
+
     // Create new tournament
-    var tournament = {name: this.state.tournamentName}
-    TournamentActions.createTournamentWithMatches(this.props.ladderId, tournament, matches);
+    var tournament = {name: this.state.tournamentName, date: this.state.tournamentDate}
+    TournamentActions.createTournamentWithMatchesAndResults(this.props.ladderId, tournament, matches, results);
 
     this.props.nextStep()
   },

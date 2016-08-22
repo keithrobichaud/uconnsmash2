@@ -46,7 +46,7 @@ class PlayerDetail extends Component {
         { this.state.player &&
           <div>
             <h1>{player.name}</h1>
-            <h3>{JSON.stringify(player)}</h3>
+            <h3>{/*JSON.stringify(player) */}</h3>
           </div>
         }
       </div>

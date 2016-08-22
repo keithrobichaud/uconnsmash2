@@ -76,8 +76,10 @@
     "react": "^15.0.0",
     "react-router": "^2.4.1",
     "react-bootstrap": "^0.29.5",
+    "react-router-bootstrap": "^0.23.1",
     "react-bootstrap-date-picker": "^3.1.0",
     "react-dom": "^15.0.0",
-    "superagent": "^2.0.0"
+    "superagent": "^2.0.0",
+    "underscore": "^1.8.3"
   }
 }

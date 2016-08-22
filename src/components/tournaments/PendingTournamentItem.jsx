@@ -12,8 +12,11 @@ class TournamentSmallView extends Component {
 	render() {
 		return (
 			<ListGroupItem>
-				{this.props.tournament.name}
-				<Button bsStyle="success" onClick={this.submitTournament.bind(this, this.props)}>Submit</Button>
+				<h5 className="text-center">{this.props.tournament.name}</h5>
+				<hr/>
+				<div className="text-center" >
+					<Button bsStyle="success" onClick={this.submitTournament.bind(this, this.props)}>Submit</Button>
+				</div>
 			</ListGroupItem>
 		);
 	}
