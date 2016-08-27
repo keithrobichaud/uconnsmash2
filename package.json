@@ -9,7 +9,7 @@
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false",
     "posttest": "npm run lint",
-    "serve": "node server.js --env=dev",
+    "serve": "node server.js --env=dist",
     "serve:dist": "node server.js --env=dist",
     "dist": "npm run copy & webpack --env=dist",
     "lint": "eslint ./src",
