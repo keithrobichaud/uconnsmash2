@@ -5,6 +5,7 @@ let webpack = require('webpack');
 
 let baseConfig = require('./base');
 let defaultSettings = require('./defaults');
+let prodPort = 80;
 
 // Add needed plugins here
 let BowerWebpackPlugin = require('bower-webpack-plugin');
@@ -12,6 +13,7 @@ let BowerWebpackPlugin = require('bower-webpack-plugin');
 let config = Object.assign({}, baseConfig, {
   entry: path.join(__dirname, '../src/index'),
   cache: false,
+  port: prodPort,
   devtool: 'sourcemap',
   plugins: [
     new webpack.optimize.DedupePlugin(),
