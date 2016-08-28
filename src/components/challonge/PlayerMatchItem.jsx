@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore';
 import { FormControl, Panel} from 'react-bootstrap'
 
 
@@ -12,15 +13,15 @@ var PlayerMatchItem = React.createClass({
 		ladderPlayers: React.PropTypes.array
 	},
 
-	// guessTag: function() {
-	// 	for (var i = 0; i < this.props.ladderPlayers.length; i++) {
-	// 		var ladderPlayer = this.props.ladderPlayers[i];
+	guessTag: function() {
+		for (var i = 0; i < this.props.ladderPlayers.length; i++) {
+			var ladderPlayer = this.props.ladderPlayers[i];
 
-	// 		if (this.props.player.name.toUpperCase() === ladderPlayer.name.toUpperCase()) {
-	// 			return {ladderPlayerName: ladderPlayer.name};
-	// 		}
-	// 	}
-	// },
+			if (this.props.player.name.toUpperCase() === ladderPlayer.name.toUpperCase()) {
+				return {ladderPlayerName: ladderPlayer.name};
+			}
+		}
+	},
 
 	getInitialState: function() {
 		return {ladderPlayerName: 'none'};
@@ -38,7 +39,7 @@ var PlayerMatchItem = React.createClass({
 	},
 
 	componentDidMount() {
-		// this.guessTag();
+		this.guessTag();
 	},
 
 	render: function() {
@@ -48,7 +49,8 @@ var PlayerMatchItem = React.createClass({
 		playerOptions.push(<option key={'new'} value={'new'} > Create new player </option>);
 
 		if (this.props.ladderPlayers) {
-			this.props.ladderPlayers.map(player => { playerOptions.push(this.getPlayerOption(player)) });
+			var sortedPlayers = _.sortBy(this.props.ladderPlayers, function (player) {return player.name.toUpperCase()});
+			sortedPlayers.map(player => { playerOptions.push(this.getPlayerOption(player)) });
 		}
 
 		

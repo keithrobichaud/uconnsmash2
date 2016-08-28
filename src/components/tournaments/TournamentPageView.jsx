@@ -3,6 +3,7 @@ import _ from 'underscore';
 import {Table} from 'react-bootstrap';
 import TournamentActions from '../../actions/TournamentActions';
 import TournamentStore from '../../stores/TournamentStore';
+import MatchGroupView from '../matches/MatchGroupView';
 
 class TournamentPageView extends Component {
 
@@ -52,7 +53,7 @@ class TournamentPageView extends Component {
 		var resultTable, matchTable;
 		if (this.state.tournament) {
 			tournament = this.state.tournament;
-			// var matches = tournament.matches;
+			var matches = tournament.matches;
 			var results = _.sortBy(tournament.results, result => result.placement);
 			var participants = _.indexBy(tournament.participants, '_id');
 
@@ -81,6 +82,8 @@ class TournamentPageView extends Component {
 								</tbody>
 							</Table>;
 			}
+
+			matchTable = <MatchGroupView matches={matches} tournament={tournament} participants={participants} />;
 		}
 
 		return (
@@ -91,7 +94,7 @@ class TournamentPageView extends Component {
 						<div className="col-sm-3">
 							{resultTable}
 						</div>
-						<div className="col-sm-6">
+						<div className="col-sm-9">
 							{matchTable}
 						</div>
 					</div>

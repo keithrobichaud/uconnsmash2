@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import _ from 'underscore';
 import PlayerActions from '../actions/PlayerActions';
 import PlayerStore from '../stores/PlayerStore';
+import MatchGroupView from './matches/MatchGroupView';
+
+var ladderId = '57ba5cc39cec0cdb0555c552';
 
 class PlayerDetail extends Component {
 
   constructor() {
     super();
     this.state = {
-      player: {}
+      player: {},
+      participants: {}
     }
     this.onChange = this.onChange.bind(this);
   }
@@ -17,7 +22,9 @@ class PlayerDetail extends Component {
   }
 
   componentDidMount() {
+   
     PlayerActions.getPlayer(this.props.params.id);
+    PlayerActions.getPlayers(ladderId);
   }
 
   componentWillUnmount() {
@@ -26,27 +33,36 @@ class PlayerDetail extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      player: PlayerActions.getPlayer(nextProps.params.id)
+      player: PlayerActions.getPlayer(nextProps.params.id),
+      participants: PlayerActions.getPlayers(ladderId)
     });
   }
 
   onChange() {
     this.setState({
-      player: PlayerStore.getPlayer(this.props.params.id)
+      player: PlayerStore.getPlayer(),
+      participants: PlayerStore.getPlayers()
     });
   }
 
   render() {
-    let player;
+    var player, matches;
     if (this.state.player) {
       player = this.state.player;
+      matches = _.map(player.matches, function(match) {
+        return match.match;
+      });
+      var participants = _.indexBy(this.state.participants, '_id');
     }
     return (
       <div>
         { this.state.player &&
           <div>
             <h1>{player.name}</h1>
-            <h3>{/*JSON.stringify(player) */}</h3>
+            <div>
+              Skill: {Math.round(100*player.trueSkill)/100}
+            </div>
+            <MatchGroupView matches={matches} participants={participants} />
           </div>
         }
       </div>

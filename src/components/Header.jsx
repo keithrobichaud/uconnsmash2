@@ -46,28 +46,30 @@ class HeaderComponent extends Component {
           <LinkContainer to="/#">
             <Navbar.Brand>UConn Smash</Navbar.Brand>
           </LinkContainer>
+          <Navbar.Toggle />
         </Navbar.Header>
-        <Nav>
-          <LinkContainer to="/ladder">
-            <NavItem>Ladder</NavItem>
-          </LinkContainer>
-          <LinkContainer to="/tournaments">
-            <NavItem>Tournaments</NavItem>
-          </LinkContainer>
-          { this.state.isAdmin ? (
-            <LinkContainer to="/admin">
-              <NavItem>Admin</NavItem>
+        <Navbar.Collapse>
+          <Nav>
+            <LinkContainer to="/ladder">
+              <NavItem>Ladder</NavItem>
             </LinkContainer>
-          ) : null}
-        </Nav>
-        <Nav pullRight>
-          { !this.state.authenticated ? (
-            <NavItem onClick={this.login}>Login</NavItem>
-          ) : (
-            <NavItem onClick={this.logout}>Logout</NavItem>
-          )}
-        </Nav>
-
+            <LinkContainer to="/tournaments">
+              <NavItem>Tournaments</NavItem>
+            </LinkContainer>
+            { this.state.isAdmin ? (
+              <LinkContainer to="/admin">
+                <NavItem>Admin</NavItem>
+              </LinkContainer>
+            ) : null}
+          </Nav>
+          <Nav pullRight>
+            { !this.state.authenticated ? (
+              <NavItem onClick={this.login}>Login</NavItem>
+            ) : (
+              <NavItem onClick={this.logout}>Logout</NavItem>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     );
   }
