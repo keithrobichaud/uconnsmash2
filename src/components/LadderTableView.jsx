@@ -16,7 +16,7 @@ function getLadderCell(player, rank) {
 }
 
 // this is a hardcoded id for right now for development purposes.
-var ladderId = '57ba5cc39cec0cdb0555c552';
+var ladderId = '57c5aa6b7a8711e857b6c8bc';
 
 class LadderTableView extends Component {
 

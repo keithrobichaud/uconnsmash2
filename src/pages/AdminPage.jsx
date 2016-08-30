@@ -8,7 +8,7 @@ import PendingTournamentList from '../components/tournaments/PendingTournamentLi
 import AuthStore from '../stores/AuthStore';
 
 // hardcoded ids for right now for development purposes.
-var ladderId = '57ba5cc39cec0cdb0555c552';
+var ladderId = '57c5aa6b7a8711e857b6c8bc';
 var apiKey = 'OTDkq2jLrPvgO7JaTPpq1gSqAe7DFl2Z4GzaCRNw';
 
 class AdminPage extends Component {

@@ -4,7 +4,7 @@ import PlayerActions from '../actions/PlayerActions';
 import PlayerStore from '../stores/PlayerStore';
 import MatchGroupView from './matches/MatchGroupView';
 
-var ladderId = '57ba5cc39cec0cdb0555c552';
+var ladderId = '57c5aa6b7a8711e857b6c8bc';
 
 class PlayerDetail extends Component {
 
